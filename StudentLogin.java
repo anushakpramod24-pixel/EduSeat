@@ -21,11 +21,51 @@ public class StudentLogin extends JFrame {
         add(new JLabel()); add(viewBtn); // Empty label to align button
 
         viewBtn.addActionListener(e -> {
-            String name = nameField.getText().trim();
-            String roll = rollField.getText().trim();
+    String name = nameField.getText().trim();
+    String roll = rollField.getText().trim();
 
-            // Add your seat lookup logic here
-        });
+    if (name.isEmpty() || roll.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter both Name and Roll No.");
+        return;
+    }
+
+    boolean found = false; // ✅ Declare before the loop
+
+    for (Student s : AdminDashboard.students) {
+        if (s.getName().equalsIgnoreCase(name) && s.getRoll().equals(roll)) {
+            String message = "Seat Arrangement:\n" +
+                             "Name: " + s.getName() + "\n" +
+                             "Roll No: " + s.getRoll() + "\n" +
+                             "Subject: " + s.getSubject() + "\n" +
+                             "Exam Hall: " + s.getHallName() + "\n" +
+                             "Seat Number: " + s.getSeatNumber();
+            JOptionPane.showMessageDialog(this, message);
+            found = true;
+            break; // ✅ Exit loop after finding match
+        }
+    }
+
+    if (!found) {
+        JOptionPane.showMessageDialog(this, "No seat arrangement found for given details.");
+    }
+});
+
+
+        
+
+      //  viewBtn.addActionListener(e -> {
+        // String name = nameField.getText().trim();
+        //String roll = rollField.getText().trim();
+
+           // Add your seat lookup logic here
+
+        
+    
+    
+//};
+       
+    //}
+     //  });
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
